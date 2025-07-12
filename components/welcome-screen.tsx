@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -8,7 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Users, Utensils, Download } from "lucide-react";
+import { Users, Download, Info } from "lucide-react";
 import { usePWAInstall } from "@/hooks/use-pwa-install";
 
 interface WelcomeScreenProps {
@@ -17,6 +18,7 @@ interface WelcomeScreenProps {
 
 export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
   const { isInstallable, isInstalled, installApp } = usePWAInstall();
+  const [showInfo, setShowInfo] = useState(false);
 
   return (
     <div className="min-h-screen bg-vanilla-100 flex items-center justify-center p-4">
@@ -25,24 +27,23 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
           <img
             src="icon-512.png"
             className="mx-auto mb-4 w-20 h-20 rounded-full flex items-center justify-center"
+            alt="App Icon"
           />
           <CardTitle className="text-4xl font-bold text-eerie-800">
             Posa Xrosto?
           </CardTitle>
           <CardDescription className="text-lg text-eerie-600">
-            Save friendships. Stop fighting over the bill.
+            For when the math isn’t mathing.
           </CardDescription>
         </CardHeader>
+
         <CardContent className="space-y-6">
           <div className="space-y-3">
             <Button
-              onClick={() => {
-                onStart();
-              }}
+              onClick={onStart}
               className="w-full bg-glaucous-500 hover:bg-glaucous-600 text-white font-semibold py-6 text-lg"
               size="lg"
             >
-              <Users className="w-5 h-5 mr-2" />
               Split the bill
             </Button>
 
@@ -56,7 +57,40 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
                 Install App
               </Button>
             )}
+
+            <Button
+              variant="ghost"
+              onClick={() => setShowInfo((prev) => !prev)}
+              className="w-full text-center text-eerie-500 hover:text-eerie-800 text-sm"
+            >
+              {showInfo ? "Hide info ↑" : "Learn how it works →"}
+            </Button>
           </div>
+
+          {showInfo && (
+            <Card className="bg-white border border-glaucous-200 mt-2 shadow-sm">
+              <CardContent className="py-4 px-6 space-y-3 text-eerie-700 text-sm">
+                <div className="flex gap-2 items-start">
+                  <span className="font-bold">1.</span> Add number of people
+                </div>
+                <div className="flex gap-2 items-start">
+                  <span className="font-bold">2.</span> Add their names
+                </div>
+                <div className="flex gap-2 items-start">
+                  <span className="font-bold">3.</span> Add items and prices
+                </div>
+                <div className="flex gap-2 items-start">
+                  <span className="font-bold">4.</span> Choose who ate what
+                </div>
+                <div className="flex gap-2 items-start">
+                  <span className="font-bold">5.</span> Split the bill...
+                  <br />
+                </div>
+                <br />
+                <span className="ml-7">Voila! See each person’s total </span>
+              </CardContent>
+            </Card>
+          )}
         </CardContent>
       </div>
     </div>
