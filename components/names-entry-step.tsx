@@ -34,6 +34,12 @@ export function NamesEntryStep({
     setCurrentNames(newNames);
   };
 
+  const allFilled = currentNames.every((name) => name.trim() !== "");
+  const allUnique =
+    new Set(currentNames.map((name) => name.trim().toLowerCase())).size ===
+    currentNames.length;
+  const showError = allFilled && !allUnique;
+
   return (
     <StepLayout step={2}>
       <div className="flex items-center justify-center p-4 min-h-[calc(100vh-112px)]">
@@ -70,9 +76,9 @@ export function NamesEntryStep({
               ))}
             </div>
 
-            {!isValid && currentNames.some((name) => name.trim() !== "") && (
+            {showError && (
               <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
-                <p className="text-sm text-red-700 text-center">
+                <p className="text-sm text-gray-700 text-center">
                   Please fill all names with unique values
                 </p>
               </div>

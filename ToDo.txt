@@ -1,8 +1,6 @@
 - make welcome page more fun
 - check mobile responsiveness
 - fix logo to be centered in the circle
-- change styling for "Please fill all names with unique values"
-
 
 
 generally, figure out how to make it appealing in mobile view
