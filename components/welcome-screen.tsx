@@ -9,7 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Users, Download, Info } from "lucide-react";
+import { Users, Download, Info, X, Share, MoreVertical } from "lucide-react";
 import { usePWAInstall } from "@/hooks/use-pwa-install";
 
 interface WelcomeScreenProps {
@@ -17,7 +17,16 @@ interface WelcomeScreenProps {
 }
 
 export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
-  const { isInstallable, isInstalled, installApp } = usePWAInstall();
+  const { 
+    isInstallable, 
+    isInstalled, 
+    installApp, 
+    platform, 
+    showInstructions, 
+    setShowInstructions, 
+    getInstallInstructions,
+    canUseNativePrompt 
+  } = usePWAInstall();
   const [showInfo, setShowInfo] = useState(false);
 
   return (
@@ -47,14 +56,14 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
               Split the bill
             </Button>
 
-            {isInstallable && !isInstalled && (
+            {isInstallable && (
               <Button
                 onClick={installApp}
                 variant="outline"
                 className="w-full border-2 border-amaranth-300 text-amaranth-700 hover:bg-amaranth-50 bg-transparent"
               >
                 <Download className="w-4 h-4 mr-2" />
-                Install App
+                {canUseNativePrompt ? "Install App" : "Install Instructions"}
               </Button>
             )}
 
@@ -88,6 +97,42 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
                 </div>
                 <br />
                 <span className="ml-7">Voila! See each person’s total </span>
+              </CardContent>
+            </Card>
+          )}
+
+          {showInstructions && (
+            <Card className="bg-white border border-amaranth-200 mt-2 shadow-sm">
+              <CardContent className="py-4 px-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="font-semibold text-eerie-800 flex items-center gap-2">
+                    {platform === 'ios' && <Share className="w-4 h-4" />}
+                    {platform === 'android' && <MoreVertical className="w-4 h-4" />}
+                    {platform === 'desktop' && <Download className="w-4 h-4" />}
+                    {platform === 'unknown' && <Download className="w-4 h-4" />}
+                    {getInstallInstructions().title}
+                  </h3>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setShowInstructions(false)}
+                    className="h-6 w-6 p-0"
+                  >
+                    <X className="w-4 h-4" />
+                  </Button>
+                </div>
+                <div className="space-y-2 text-eerie-700 text-sm">
+                  {getInstallInstructions().steps.map((step, index) => (
+                    <div key={index} className="flex gap-2 items-start">
+                      <span>{step}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-4 p-3 bg-amaranth-50 rounded-lg">
+                  <p className="text-xs text-amaranth-700">
+                    💡 Once installed, the app will work offline and load faster!
+                  </p>
+                </div>
               </CardContent>
             </Card>
           )}
