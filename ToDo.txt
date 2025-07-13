@@ -6,5 +6,12 @@
     - swipe item to the left for delete
     - swipe item to the right for edit
 - fix share results
+- in step 2 add an "Add Person" button
+- look the back->back... issue
 
 generally, figure out how to make it appealing in mobile view
+
+
+
+Tiktok todo:
+- send app to Margarette (food tiktok)
