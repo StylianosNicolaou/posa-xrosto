@@ -34,6 +34,11 @@ export function ResultsStep({
       .map((person) => `${person.name}: €\$\{person.total.toFixed(2)}`)
       .join("\n")}\n\nSplit with Posa Xrosto!`;
 
+    // Check if we're in a browser environment
+    if (typeof navigator === 'undefined') {
+      return;
+    }
+
     if (navigator.share) {
       try {
         await navigator.share({
@@ -43,9 +48,15 @@ export function ResultsStep({
       } catch (err) {
         console.log("Error sharing:", err);
       }
-    } else {
-      navigator.clipboard.writeText(shareText);
-      alert("Results copied to clipboard!");
+    } else if (navigator.clipboard) {
+      try {
+        await navigator.clipboard.writeText(shareText);
+        alert("Results copied to clipboard!");
+      } catch (err) {
+        console.log("Error copying to clipboard:", err);
+        // Fallback for older browsers
+        alert("Please manually copy the results");
+      }
     }
   };
 
