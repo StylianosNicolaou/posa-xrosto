@@ -21,6 +21,8 @@ interface NumberOfPeopleStepProps {
   onBack: () => void;
 }
 
+const quickOptions = [2, 3, 4, 5, 6, 8];
+
 export function NumberOfPeopleStep({
   numberOfPeople,
   setNumberOfPeople,
@@ -44,6 +46,31 @@ export function NumberOfPeopleStep({
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
+            <div className="space-y-3">
+              <Label className="text-sm font-medium text-gray-700">
+                Quick select:
+              </Label>
+              <div className="grid grid-cols-3 gap-2">
+                {quickOptions.map((option) => (
+                  <Button
+                    key={option}
+                    variant={
+                      numberOfPeople === option.toString()
+                        ? "default"
+                        : "outline"
+                    }
+                    className={`h-12 text-lg font-semibold transition-all duration-200 ${
+                      numberOfPeople === option.toString()
+                        ? "bg-gradient-to-r from-primary-500 to-primary-600 text-white shadow-lg scale-105"
+                        : "hover:bg-primary-50 hover:border-primary-300"
+                    }`}
+                    onClick={() => setNumberOfPeople(option.toString())}
+                  >
+                    {option}
+                  </Button>
+                ))}
+              </div>
+            </div>
             <div className="space-y-3">
               <Label
                 htmlFor="numberOfPeople"
