@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
-import { useBillSplit } from "@/hooks/use-bill-split"
-import { WelcomeScreen } from "@/components/welcome-screen"
-import { NumberOfPeopleStep } from "@/components/number-of-people-step"
-import { NamesEntryStep } from "@/components/names-entry-step"
-import { ItemsManagementStep } from "@/components/items-management-step"
-import { ResultsStep } from "@/components/results-step"
+import { useBillSplit } from "@/hooks/use-bill-split";
+import { WelcomeScreen } from "@/components/welcome-screen";
+import { NumberOfPeopleStep } from "@/components/number-of-people-step";
+import { NamesEntryStep } from "@/components/names-entry-step";
+import { ItemsManagementStep } from "@/components/items-management-step";
+import { ResultsStep } from "@/components/results-step";
 
 export default function PosaXrosto() {
   const {
@@ -36,16 +36,20 @@ export default function PosaXrosto() {
     handleCalculate,
     handleReset,
     toggleParticipant,
-  } = useBillSplit()
+  } = useBillSplit();
 
   console.log("Current step:", step);
 
   // Welcome Screen
   if (step === 0) {
-    return <WelcomeScreen onStart={() => {
-      console.log("onStart called, setting step to 1");
-      setStep(1);
-    }} />
+    return (
+      <WelcomeScreen
+        onStart={() => {
+          console.log("onStart called, setting step to 1");
+          setStep(1);
+        }}
+      />
+    );
   }
 
   // Step 1: Number of People
@@ -58,7 +62,7 @@ export default function PosaXrosto() {
         onNext={handleNumberSubmit}
         onBack={() => setStep(0)}
       />
-    )
+    );
   }
 
   // Step 2: Enter Names
@@ -71,7 +75,7 @@ export default function PosaXrosto() {
         onNext={handleNamesSubmit}
         onBack={() => setStep(1)}
       />
-    )
+    );
   }
 
   // Step 3: Add Items
@@ -91,7 +95,7 @@ export default function PosaXrosto() {
         onCalculate={handleCalculate}
         onBack={() => setStep(2)}
       />
-    )
+    );
   }
 
   // Step 4: Results
@@ -104,8 +108,8 @@ export default function PosaXrosto() {
         onBack={() => setStep(3)}
         onReset={handleReset}
       />
-    )
+    );
   }
 
-  return null
+  return null;
 }
