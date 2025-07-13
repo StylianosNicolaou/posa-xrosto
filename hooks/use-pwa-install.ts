@@ -16,6 +16,11 @@ export function usePWAInstall() {
   const [showInstructions, setShowInstructions] = useState(false)
 
   useEffect(() => {
+    // Only run on client side
+    if (typeof window === 'undefined' || typeof navigator === 'undefined') {
+      return
+    }
+
     // Detect platform
     const userAgent = navigator.userAgent.toLowerCase()
     const isIOS = /iphone|ipad|ipod/.test(userAgent)
