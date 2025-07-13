@@ -63,7 +63,7 @@ export function ItemForm({
           </div>
           <div className="space-y-2">
             <Label htmlFor="itemPrice" className="text-eerie-700 font-medium">
-              Price ($)
+              Price (€)
             </Label>
             <Input
               id="itemPrice"

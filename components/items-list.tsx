@@ -1,23 +1,30 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Separator } from "@/components/ui/separator"
-import { Calculator, DollarSign, ArrowLeft, Trash2, ShoppingBag, Edit } from "lucide-react"
-import type { Item } from "@/types"
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { Calculator, ArrowLeft, Trash2, ShoppingBag, Edit } from "lucide-react";
+import type { Item } from "@/types";
 
 interface ItemsListProps {
-  items: Item[]
-  totalAmount: number
-  onRemoveItem: (id: string) => void
-  onEditItem: (id: string) => void
-  onCalculate: () => void
-  onBack: () => void
+  items: Item[];
+  totalAmount: number;
+  onRemoveItem: (id: string) => void;
+  onEditItem: (id: string) => void;
+  onCalculate: () => void;
+  onBack: () => void;
 }
 
-export function ItemsList({ items, totalAmount, onRemoveItem, onEditItem, onCalculate, onBack }: ItemsListProps) {
-  if (items.length === 0) return null
+export function ItemsList({
+  items,
+  totalAmount,
+  onRemoveItem,
+  onEditItem,
+  onCalculate,
+  onBack,
+}: ItemsListProps) {
+  if (items.length === 0) return null;
 
   return (
     <Card className="bg-white border-2 border-vanilla-200 shadow-lg">
@@ -30,8 +37,7 @@ export function ItemsList({ items, totalAmount, onRemoveItem, onEditItem, onCalc
             <span className="text-eerie-800">Items Added ({items.length})</span>
           </div>
           <Badge className="text-lg px-4 py-2 bg-amaranth-500 text-white">
-            <DollarSign className="w-4 h-4 mr-1" />
-            {totalAmount.toFixed(2)}
+            €{totalAmount.toFixed(2)}
           </Badge>
         </CardTitle>
       </CardHeader>
@@ -45,8 +51,12 @@ export function ItemsList({ items, totalAmount, onRemoveItem, onEditItem, onCalc
               <div className="flex items-start justify-between">
                 <div className="flex-1 space-y-2">
                   <div className="flex items-center justify-between">
-                    <h4 className="font-semibold text-eerie-800">{item.name}</h4>
-                    <span className="font-bold text-xl text-glaucous-600">${item.price.toFixed(2)}</span>
+                    <h4 className="font-semibold text-eerie-800">
+                      {item.name}
+                    </h4>
+                    <span className="font-bold text-xl text-glaucous-600">
+                      €{item.price.toFixed(2)}
+                    </span>
                   </div>
                   <div className="flex flex-wrap gap-1">
                     {item.participants.map((participant) => (
@@ -60,7 +70,8 @@ export function ItemsList({ items, totalAmount, onRemoveItem, onEditItem, onCalc
                     ))}
                   </div>
                   <p className="text-sm text-eerie-600 bg-white px-2 py-1 rounded-md inline-block">
-                    ${(item.price / item.participants.length).toFixed(2)} per person
+                    €{(item.price / item.participants.length).toFixed(2)} per
+                    person
                   </p>
                 </div>
                 <div className="flex gap-2 ml-3">
@@ -106,5 +117,5 @@ export function ItemsList({ items, totalAmount, onRemoveItem, onEditItem, onCalc
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

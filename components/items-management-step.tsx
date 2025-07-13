@@ -52,15 +52,9 @@ export function ItemsManagementStep({
     scannedItems: { name: string; price: number }[]
   ) => {
     scannedItems.forEach((scannedItem) => {
-      const newItem: Item = {
-        id: Date.now().toString() + Math.random(),
-        name: scannedItem.name,
-        price: scannedItem.price,
-        participants: [...names],
-      };
       setCurrentItem({
         name: scannedItem.name,
-        price: scannedItem.price.toString(),
+        price: scannedItem.price.toFixed(2),
       });
     });
     setShowScanner(false);

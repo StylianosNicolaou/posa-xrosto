@@ -28,10 +28,10 @@ export function ResultsStep({
   onReset,
 }: ResultsStepProps) {
   const handleShare = async () => {
-    const shareText = `Bill Split Results:\nTotal: $${totalAmount.toFixed(
+    const shareText = `Bill Split Results:\nTotal: €\$\{totalAmount.toFixed(
       2
     )}\n\n${results
-      .map((person) => `${person.name}: $${person.total.toFixed(2)}`)
+      .map((person) => `${person.name}: €\$\{person.total.toFixed(2)}`)
       .join("\n")}\n\nSplit with Posa Xrosto!`;
 
     if (navigator.share) {
@@ -69,7 +69,7 @@ export function ResultsStep({
             <CardContent>
               <div className="text-center mb-8 p-6 bg-vanilla-100 rounded-2xl border-2 border-vanilla-200">
                 <div className="text-4xl font-bold text-eerie-900 mb-2">
-                  Total: ${totalAmount.toFixed(2)}
+                  Total: €{totalAmount.toFixed(2)}
                 </div>
                 <div className="text-eerie-700">
                   Split among {namesCount} people
@@ -88,7 +88,7 @@ export function ResultsStep({
                           {person.name}
                         </h3>
                         <div className="text-3xl font-bold text-amaranth-600">
-                          ${person.total.toFixed(2)}
+                          €{person.total.toFixed(2)}
                         </div>
                       </div>
                       <div className="space-y-2">
@@ -99,7 +99,7 @@ export function ResultsStep({
                           >
                             <span className="text-eerie-700">{item.name}</span>
                             <span className="font-semibold text-glaucous-600">
-                              ${item.share.toFixed(2)}
+                              €{item.share.toFixed(2)}
                             </span>
                           </div>
                         ))}
