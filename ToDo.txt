@@ -6,5 +6,3 @@
 
 
 generally, figure out how to make it appealing in mobile view
-
-testing of stg branch
