@@ -1,45 +1,45 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Enable PWA features
-  experimental: {
-    webpackBuildWorker: true,
-  },
+  // experimental: {
+  //   webpackBuildWorker: true,
+  // },
   // Ensure static files are served correctly
   async headers() {
     return [
       {
-        source: '/manifest.json',
+        source: "/manifest.json",
         headers: [
           {
-            key: 'Content-Type',
-            value: 'application/manifest+json',
+            key: "Content-Type",
+            value: "application/manifest+json",
           },
         ],
       },
       {
-        source: '/sw.js',
+        source: "/sw.js",
         headers: [
           {
-            key: 'Content-Type',
-            value: 'application/javascript',
+            key: "Content-Type",
+            value: "application/javascript",
           },
           {
-            key: 'Service-Worker-Allowed',
-            value: '/',
+            key: "Service-Worker-Allowed",
+            value: "/",
           },
         ],
       },
-    ]
+    ];
   },
   eslint: {
-    ignoreDuringBuilds: true,
+    ignoreDuringBuilds: false,
   },
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: false,
   },
   images: {
     unoptimized: true,
   },
-}
+};
 
-export default nextConfig
+export default nextConfig;
