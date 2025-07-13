@@ -17,6 +17,7 @@ export default function PosaXrosto() {
     items,
     currentItem,
     selectedParticipants,
+    editingItemId,
     results,
     totalAmount,
     // Setters
@@ -33,6 +34,9 @@ export default function PosaXrosto() {
     handleNamesSubmit,
     handleAddItem,
     handleRemoveItem,
+    handleEditItem,
+    handleUpdateItem,
+    handleCancelEdit,
     handleCalculate,
     handleReset,
     toggleParticipant,
@@ -92,6 +96,10 @@ export default function PosaXrosto() {
         isValidItem={isValidItem()}
         onAddItem={handleAddItem}
         onRemoveItem={handleRemoveItem}
+        editingItemId={editingItemId}
+        onEditItem={handleEditItem}
+        onUpdateItem={handleUpdateItem}
+        onCancelEdit={handleCancelEdit}
         onCalculate={handleCalculate}
         onBack={() => setStep(2)}
       />

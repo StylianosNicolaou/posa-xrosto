@@ -20,6 +20,10 @@ interface ItemsManagementStepProps {
   isValidItem: boolean;
   onAddItem: () => void;
   onRemoveItem: (id: string) => void;
+  editingItemId: string | null;
+  onEditItem: (id: string) => void;
+  onUpdateItem: () => void;
+  onCancelEdit: () => void;
   onCalculate: () => void;
   onBack: () => void;
 }
@@ -35,6 +39,10 @@ export function ItemsManagementStep({
   isValidItem,
   onAddItem,
   onRemoveItem,
+  editingItemId,
+  onEditItem,
+  onUpdateItem,
+  onCancelEdit,
   onCalculate,
   onBack,
 }: ItemsManagementStepProps) {
@@ -93,12 +101,16 @@ export function ItemsManagementStep({
             toggleParticipant={toggleParticipant}
             isValid={isValidItem}
             onAddItem={onAddItem}
+            editingItemId={editingItemId}
+            onUpdateItem={onUpdateItem}
+            onCancelEdit={onCancelEdit}
           />
 
           <ItemsList
             items={items}
             totalAmount={totalAmount}
             onRemoveItem={onRemoveItem}
+            onEditItem={onEditItem}
             onCalculate={onCalculate}
             onBack={onBack}
           />

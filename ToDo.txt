@@ -1,6 +1,6 @@
 - make welcome page more fun
 - check mobile responsiveness
 - fix logo to be centered in the circle
-- add edit items to the food items
+
 
 generally, figure out how to make it appealing in mobile view

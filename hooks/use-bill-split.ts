@@ -11,6 +11,7 @@ export function useBillSplit() {
   const [items, setItems] = useState<Item[]>([])
   const [currentItem, setCurrentItem] = useState({ name: "", price: "" })
   const [selectedParticipants, setSelectedParticipants] = useState<string[]>([])
+  const [editingItemId, setEditingItemId] = useState<string | null>(null)
   const [results, setResults] = useState<PersonTotal[]>([])
 
   // Validation functions
@@ -60,6 +61,40 @@ export function useBillSplit() {
 
   const handleRemoveItem = (id: string) => {
     setItems(items.filter((item) => item.id !== id))
+  }
+
+  const handleEditItem = (id: string) => {
+    const itemToEdit = items.find((item) => item.id === id)
+    if (itemToEdit) {
+      setCurrentItem({ name: itemToEdit.name, price: itemToEdit.price.toString() })
+      setSelectedParticipants([...itemToEdit.participants])
+      setEditingItemId(id)
+    }
+  }
+
+  const handleUpdateItem = () => {
+    if (isValidItem() && editingItemId) {
+      const updatedItems = items.map((item) => 
+        item.id === editingItemId 
+          ? {
+              ...item,
+              name: currentItem.name.trim(),
+              price: Number.parseFloat(currentItem.price),
+              participants: [...selectedParticipants],
+            }
+          : item
+      )
+      setItems(updatedItems)
+      setCurrentItem({ name: "", price: "" })
+      setSelectedParticipants([])
+      setEditingItemId(null)
+    }
+  }
+
+  const handleCancelEdit = () => {
+    setCurrentItem({ name: "", price: "" })
+    setSelectedParticipants([])
+    setEditingItemId(null)
   }
 
   const handleCalculate = () => {
@@ -113,6 +148,7 @@ export function useBillSplit() {
     items,
     currentItem,
     selectedParticipants,
+    editingItemId,
     results,
     totalAmount,
     // Setters
@@ -129,6 +165,9 @@ export function useBillSplit() {
     handleNamesSubmit,
     handleAddItem,
     handleRemoveItem,
+    handleEditItem,
+    handleUpdateItem,
+    handleCancelEdit,
     handleCalculate,
     handleReset,
     toggleParticipant,

@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Badge } from "@/components/ui/badge"
-import { Plus, Utensils } from "lucide-react"
+import { Plus, Utensils, Save, X } from "lucide-react"
 
 interface ItemFormProps {
   currentItem: { name: string; price: string }
@@ -16,6 +16,9 @@ interface ItemFormProps {
   toggleParticipant: (name: string) => void
   isValid: boolean
   onAddItem: () => void
+  editingItemId?: string | null
+  onUpdateItem?: () => void
+  onCancelEdit?: () => void
 }
 
 export function ItemForm({
@@ -26,7 +29,11 @@ export function ItemForm({
   toggleParticipant,
   isValid,
   onAddItem,
+  editingItemId,
+  onUpdateItem,
+  onCancelEdit,
 }: ItemFormProps) {
+  const isEditing = editingItemId !== null && editingItemId !== undefined
   return (
     <Card className="bg-white border-2 border-cyan-200 shadow-lg">
       <CardHeader>
@@ -34,9 +41,11 @@ export function ItemForm({
           <div className="w-10 h-10 bg-cyan-500 rounded-full flex items-center justify-center">
             <Utensils className="w-5 h-5 text-white" />
           </div>
-          Step 3: Add Items
+          {isEditing ? "Edit Item" : "Step 3: Add Items"}
         </CardTitle>
-        <CardDescription className="text-eerie-600">Add dishes and select who shared each item</CardDescription>
+        <CardDescription className="text-eerie-600">
+          {isEditing ? "Edit the item details and participants" : "Add dishes and select who shared each item"}
+        </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -103,14 +112,35 @@ export function ItemForm({
           )}
         </div>
 
-        <Button
-          onClick={onAddItem}
-          disabled={!isValid}
-          className="w-full bg-cyan-500 hover:bg-cyan-600 text-white py-6 text-lg disabled:opacity-50 disabled:bg-gray-300"
-        >
-          <Plus className="w-5 h-5 mr-2" />
-          Add Item
-        </Button>
+        {isEditing ? (
+          <div className="flex gap-3">
+            <Button
+              onClick={onCancelEdit}
+              variant="outline"
+              className="flex-1 border-2 border-gray-300 text-gray-700 hover:bg-gray-50"
+            >
+              <X className="w-5 h-5 mr-2" />
+              Cancel
+            </Button>
+            <Button
+              onClick={onUpdateItem}
+              disabled={!isValid}
+              className="flex-1 bg-green-500 hover:bg-green-600 text-white py-6 text-lg disabled:opacity-50 disabled:bg-gray-300"
+            >
+              <Save className="w-5 h-5 mr-2" />
+              Update Item
+            </Button>
+          </div>
+        ) : (
+          <Button
+            onClick={onAddItem}
+            disabled={!isValid}
+            className="w-full bg-cyan-500 hover:bg-cyan-600 text-white py-6 text-lg disabled:opacity-50 disabled:bg-gray-300"
+          >
+            <Plus className="w-5 h-5 mr-2" />
+            Add Item
+          </Button>
+        )}
       </CardContent>
     </Card>
   )

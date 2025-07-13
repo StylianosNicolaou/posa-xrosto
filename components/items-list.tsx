@@ -4,18 +4,19 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
-import { Calculator, DollarSign, ArrowLeft, Trash2, ShoppingBag } from "lucide-react"
+import { Calculator, DollarSign, ArrowLeft, Trash2, ShoppingBag, Edit } from "lucide-react"
 import type { Item } from "@/types"
 
 interface ItemsListProps {
   items: Item[]
   totalAmount: number
   onRemoveItem: (id: string) => void
+  onEditItem: (id: string) => void
   onCalculate: () => void
   onBack: () => void
 }
 
-export function ItemsList({ items, totalAmount, onRemoveItem, onCalculate, onBack }: ItemsListProps) {
+export function ItemsList({ items, totalAmount, onRemoveItem, onEditItem, onCalculate, onBack }: ItemsListProps) {
   if (items.length === 0) return null
 
   return (
@@ -62,14 +63,24 @@ export function ItemsList({ items, totalAmount, onRemoveItem, onCalculate, onBac
                     ${(item.price / item.participants.length).toFixed(2)} per person
                   </p>
                 </div>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => onRemoveItem(item.id)}
-                  className="ml-3 text-red-500 hover:text-red-700 hover:bg-red-50"
-                >
-                  <Trash2 className="w-4 h-4" />
-                </Button>
+                <div className="flex gap-2 ml-3">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => onEditItem(item.id)}
+                    className="text-blue-500 hover:text-blue-700 hover:bg-blue-50"
+                  >
+                    <Edit className="w-4 h-4" />
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => onRemoveItem(item.id)}
+                    className="text-red-500 hover:text-red-700 hover:bg-red-50"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </Button>
+                </div>
               </div>
             </div>
           ))}
